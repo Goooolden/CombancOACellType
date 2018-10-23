@@ -33,7 +33,7 @@
 
 - (void)configUI {
     _leftImageView = [[UIImageView alloc]init];
-    _leftImageView.image = [UIImage imageNamed:@"stars.png"];
+    _leftImageView.image = [UIImage imageNamed:@"OACellTypeResource.bundle/stars.png"];
     [self.contentView addSubview:_leftImageView];
     
     _nameLabel = [[UILabel alloc]init];

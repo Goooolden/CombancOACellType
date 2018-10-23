@@ -104,7 +104,7 @@ TZImagePickerControllerDelegate
     ImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CollectReuseIdentifier forIndexPath:indexPath];
     if (_selectedPhotos.count < _maxSelectCount) {
         if (indexPath.row == _selectedPhotos.count) {
-            [cell.imageView setImage:[UIImage imageNamed:@"addpictures_img"]];
+            [cell.imageView setImage:[UIImage imageNamed:@"OACellTypeResource.bundle/addpictures_img.png"]];
             cell.imageView.layer.cornerRadius = 2;
             cell.deleteBtn.hidden = YES;
         }else {

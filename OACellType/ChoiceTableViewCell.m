@@ -44,7 +44,7 @@
     [self.contentView addSubview:_infoLabel];
     
     _rightImageView = [[UIImageView alloc]init];
-    [_rightImageView setImage:[UIImage imageNamed:@"repair_default_holo_spn"]];
+    [_rightImageView setImage:[UIImage imageNamed:@"OACellTypeResource.bundle/repair_default_holo_spn.png"]];
     [self.contentView addSubview:_rightImageView];
     
     [_leftImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -78,7 +78,7 @@
 }
 
 - (void)setIsRequired:(BOOL)isRequired {
-    _leftImageView.image = isRequired == YES ? [UIImage imageNamed:@"stars.png"] : nil;
+    _leftImageView.image = isRequired == YES ? [UIImage imageNamed:@"OACellTypeResource.bundle/stars.png"] : nil;
 }
 
 @end

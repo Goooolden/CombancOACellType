@@ -57,7 +57,7 @@
         CGFloat x = i%3 * (w + getWidth(26)) + getWidth(26);
         CGFloat y = i/3 * getHeight(40);
         button.frame = CGRectMake(x, y, w, getHeight(30));
-        [button setImage:[UIImage imageNamed:@"approval_assign_rb_false"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"OACellTypeResource.bundle/approval_assign_rb_false.png"] forState:UIControlStateNormal];
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         button.titleEdgeInsets = UIEdgeInsetsMake(0, getWidth(10), 0, 0);
         button.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
@@ -80,8 +80,8 @@
     if (self.selectedBtn == sender) {
         
     }else {
-        [sender setImage:[UIImage imageNamed:@"approval_assign_rb_true"] forState:UIControlStateNormal];
-        [self.selectedBtn setImage:[UIImage imageNamed:@"approval_assign_rb_false"] forState:UIControlStateNormal];
+        [sender setImage:[UIImage imageNamed:@"OACellTypeResource.bundle/approval_assign_rb_true.png"] forState:UIControlStateNormal];
+        [self.selectedBtn setImage:[UIImage imageNamed:@"OACellTypeResource.bundle/approval_assign_rb_false.png"] forState:UIControlStateNormal];
     }
     self.selectedBtn = sender;
     

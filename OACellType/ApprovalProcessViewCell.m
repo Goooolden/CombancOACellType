@@ -29,7 +29,7 @@
 - (void)configUI {
     self.headerImageView = [[UIImageView alloc]init];
     self.headerImageView.layer.cornerRadius = 22;
-    [self.headerImageView setImage:[UIImage imageNamed:@"user"]];
+    [self.headerImageView setImage:[UIImage imageNamed:@"OACellTypeResource.bundle/user.png"]];
     [self addSubview:self.headerImageView];
     
     self.nameLabel = [[UILabel alloc]init];
