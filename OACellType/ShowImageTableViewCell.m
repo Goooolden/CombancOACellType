@@ -39,7 +39,7 @@
 
 - (void)setImageArray:(NSArray *)imageArray {
     [self.showPhotoView showWithImageArray:imageArray];
-    NSInteger lines = imageArray.count == 9 ? 3 : ((imageArray.count + 1)%3 == 0 ? 0 : 1) + (imageArray.count + 1)/3;
+    NSInteger lines = imageArray.count == 9 ? 3 : (imageArray.count%3 == 0 ? 0 : 1) + imageArray.count/3;
     self.showPhotoView.frame = CGRectMake(16, K_CellImageGroupTop, [UIScreen mainScreen].bounds.size.width - 20, getHeight(120) * lines);
     [self.sectionNameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.contentView.mas_bottom).offset(- getHeight(120) * lines - 20);
