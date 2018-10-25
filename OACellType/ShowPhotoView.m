@@ -9,6 +9,7 @@
 #import "ShowPhotoView.h"
 #import "ShowImageCollectionViewCell.h"
 #import "XLPhotoBrowser.h"
+#import "UIImageView+WebCache.h"
 
 static NSString *const CollectReuseIdentifier = @"Cell_ID";
 
@@ -80,7 +81,7 @@ UICollectionViewDataSource>
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ShowImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CollectReuseIdentifier forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor redColor];
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:self.imageArray[indexPath.item]]];
     return cell;
 }
 
