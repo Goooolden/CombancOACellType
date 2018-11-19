@@ -10,4 +10,6 @@
 
 @interface ApprovalProcessTableViewCell : UITableViewCell
 
+- (void)configUIWithApprovals:(NSArray *)approvals departments:(NSArray *)department;
+
 @end

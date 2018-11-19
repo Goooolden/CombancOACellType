@@ -10,6 +10,6 @@
 
 @interface ApprovalProcessView : UIView
 
-- (instancetype)initWithFrame:(CGRect)frame withApprovalers:(NSArray *)approvalers;
+- (instancetype)initWithFrame:(CGRect)frame withApprovalers:(NSArray *)approvalers withDepartments:(NSArray *)departments;
 
 @end

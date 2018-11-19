@@ -33,16 +33,17 @@
     [self.contentView addSubview:self.infoLabel];
     
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contentView.mas_top).offset(getHeight(16));
+        make.top.equalTo(self.contentView.mas_top).offset(getHeight(8));
         make.left.equalTo(self.contentView.mas_left).offset(getWidth(16));
         make.width.mas_offset(getWidth(60));
+        make.bottom.equalTo(self.contentView.mas_bottom).offset(getHeight(-8));
     }];
     
     [self.infoLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contentView.mas_top).offset(getHeight(16));
+        make.top.equalTo(self.contentView.mas_top).offset(getHeight(8));
         make.left.equalTo(self.nameLabel.mas_right).offset(getWidth(10));
         make.right.equalTo(self.contentView.mas_right).offset(getWidth(-16));
-        make.bottom.equalTo(self.contentView.mas_bottom).offset(getHeight(-16));
+        make.bottom.equalTo(self.contentView.mas_bottom).offset(getHeight(-8));
     }];
 }
 

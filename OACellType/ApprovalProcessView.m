@@ -16,14 +16,16 @@
 @property (nonatomic, strong) UILabel *lineLabel;
 @property (nonatomic, strong) UIImageView *approvalState;
 @property (nonatomic, copy  ) NSArray *approvalers;
+@property (nonatomic, copy  ) NSArray *departments;
 
 @end
 
 @implementation ApprovalProcessView
 
-- (instancetype)initWithFrame:(CGRect)frame withApprovalers:(NSArray *)approvalers{
+- (instancetype)initWithFrame:(CGRect)frame withApprovalers:(NSArray *)approvalers withDepartments:(NSArray *)departments {
     if (self = [super initWithFrame:frame]) {
         _approvalers = approvalers;
+        _departments = departments;
         [self configUI];
     }
     return self;
@@ -56,8 +58,8 @@
         CGFloat y = h * i;
         CGFloat w = [UIScreen mainScreen].bounds.size.width - x;
         ApprovalProcessViewCell *processCell = [[ApprovalProcessViewCell alloc]initWithFrame:CGRectMake(x, y, w, h)];
-        processCell.nameLabel.text = @"王云辉";
-        [processCell.departmentLabel setTitle:@"人事部" forState:UIControlStateNormal];
+        processCell.nameLabel.text = _approvalers[i];
+        [processCell.departmentLabel setTitle:_departments[i] forState:UIControlStateNormal];
         [self addSubview:processCell];
     }
 }

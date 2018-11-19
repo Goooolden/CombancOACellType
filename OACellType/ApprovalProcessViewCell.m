@@ -27,6 +27,7 @@
 }
 
 - (void)configUI {
+    
     self.headerImageView = [[UIImageView alloc]init];
     self.headerImageView.layer.cornerRadius = 22;
     [self.headerImageView setImage:[UIImage imageNamed:@"OACellTypeResource.bundle/user.png"]];
@@ -59,7 +60,7 @@
     [self.departmentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.mas_right).offset(-16);
         make.centerY.equalTo(self.mas_centerY);
-        make.width.mas_equalTo(60);
+        make.width.mas_equalTo(80);
     }];
 }
 

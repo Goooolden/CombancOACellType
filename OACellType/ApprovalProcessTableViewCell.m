@@ -18,15 +18,27 @@
 @property (nonatomic, strong) UILabel *bottomLineLbl;
 @property (nonatomic, assign) CGFloat cellHeight;
 
+@property (nonatomic, copy  ) NSArray *approvals;
+@property (nonatomic, copy  ) NSArray *department;
+
 @end
 
 @implementation ApprovalProcessTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        [self configUI];
+//        [self configUI];
     }
     return self;
+}
+
+- (void)configUIWithApprovals:(NSArray *)approvals departments:(NSArray *)department {
+    self.approvals = approvals;
+    self.department = department;
+    if (self.sectionNameLbl) {
+        return;
+    }
+    [self configUI];
 }
 
 - (void)configUI {
@@ -47,14 +59,13 @@
         make.height.mas_offset(1);
     }];
     
-    NSArray *infoArray = @[@[@"李辉阳"],@[@"王云辉",@"黄铎"],@[@"王云辉",@"黄铎"]];
-    for (int i = 0; i < infoArray.count; i++) {
-        NSArray *array = infoArray[i];
+    for (int i = 0; i < self.approvals.count; i++) {
+        NSArray *array = self.approvals[i];
         CGFloat x = 0;
         CGFloat y = self.cellHeight + 50;
         CGFloat w = [UIScreen mainScreen].bounds.size.height;
         CGFloat h = 60 * array.count;
-        ApprovalProcessView *processView = [[ApprovalProcessView alloc]initWithFrame:CGRectMake(x, y, w, h) withApprovalers:array];
+        ApprovalProcessView *processView = [[ApprovalProcessView alloc]initWithFrame:CGRectMake(x, y, w, h) withApprovalers:array withDepartments:self.department[i]];
         [self.contentView addSubview:processView];
         
         if (self.cellHeight > 0) {
@@ -62,7 +73,7 @@
             bottomLine.backgroundColor = [UIColor colorWithHex:@"#e6e6e6"];
             [self.contentView addSubview:bottomLine];
         }
-        
+    
         self.cellHeight += h;
     }
     
