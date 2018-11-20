@@ -35,8 +35,9 @@
 - (void)configUIWithApprovals:(NSArray *)approvals departments:(NSArray *)department {
     self.approvals = approvals;
     self.department = department;
-    if (self.sectionNameLbl) {
-        return;
+    self.cellHeight = 0;
+    for (UIView *view in self.contentView.subviews) {
+        [view removeFromSuperview];
     }
     [self configUI];
 }
@@ -73,7 +74,7 @@
             bottomLine.backgroundColor = [UIColor colorWithHex:@"#e6e6e6"];
             [self.contentView addSubview:bottomLine];
         }
-    
+
         self.cellHeight += h;
     }
     
