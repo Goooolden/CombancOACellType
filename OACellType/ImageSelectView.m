@@ -10,6 +10,7 @@
 #import "ImageCollectionViewCell.h"
 #import "XLPhotoBrowser.h"
 #import "TZImagePickerController.h"
+#import "UIImageView+WebCache.h"
 
 static NSString *const CollectReuseIdentifier = @"CELL_ID";
 
@@ -67,6 +68,16 @@ TZImagePickerControllerDelegate
     return self;
 }
 
+- (void)reloadImageSelectViewWith:(NSMutableArray *)imageArray {
+    if (imageArray.count > 0) {
+        _selectedPhotos = [imageArray mutableCopy];
+        [self.myCollectionView reloadData];
+        if (_didSelectedImageBlock) {
+            _didSelectedImageBlock(_selectedPhotos);
+        }
+    }
+}
+
 - (void)imageSelectViewDidSelected:(didSelectedImagesBlock)didSelectedImages {
     _didSelectedImageBlock = didSelectedImages;
 }
@@ -93,6 +104,7 @@ TZImagePickerControllerDelegate
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    NSLog(@"%ld  %lu",(unsigned long)_selectedPhotos.count,(long)_maxSelectCount);
     if (_selectedPhotos.count < _maxSelectCount) {
         return _selectedPhotos.count + 1;
     }else {
@@ -103,21 +115,30 @@ TZImagePickerControllerDelegate
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CollectReuseIdentifier forIndexPath:indexPath];
     if (_selectedPhotos.count < _maxSelectCount) {
+        NSLog(@"%ld  %lu",(long)indexPath.row,(unsigned long)_selectedPhotos.count);
         if (indexPath.row == _selectedPhotos.count) {
             [cell.imageView setImage:[UIImage imageNamed:@"OACellTypeResource.bundle/addpictures_img.png"]];
             cell.imageView.layer.cornerRadius = 2;
             cell.deleteBtn.hidden = YES;
         }else {
-            cell.imageView.image = _selectedPhotos[indexPath.row];
+            if ([_selectedPhotos[indexPath.row] isKindOfClass:[NSString class]]) {
+                [cell.imageView sd_setImageWithURL:[NSURL URLWithString:_selectedPhotos[indexPath.row]]];
+            }else {
+                cell.imageView.image = _selectedPhotos[indexPath.row];
+            }
             cell.imageView.layer.cornerRadius = 0;
             cell.deleteBtn.hidden = NO;
         }
     }else {
-        cell.imageView.image = _selectedPhotos[indexPath.row];
+        if ([_selectedPhotos[indexPath.row] isKindOfClass:[NSString class]]) {
+            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:_selectedPhotos[indexPath.row]]];
+        }else {
+            cell.imageView.image = _selectedPhotos[indexPath.row];
+        }
         cell.imageView.layer.cornerRadius = 0;
         cell.deleteBtn.hidden = NO;
     }
-    cell.deleteBtn.tag = indexPath.row;
+    cell.deleteBtn.tag = indexPath.row + 999;
     [cell.deleteBtn addTarget:self action:@selector(deleteBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
@@ -164,7 +185,9 @@ TZImagePickerControllerDelegate
         imagePickerVC.allowPickingOriginalPhoto = NO;
         [imagePickerVC setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
             self->_selectedAssets = [assets mutableCopy];
-            self->_selectedPhotos = [photos mutableCopy];
+            for (UIImage *image in photos) {
+                [self->_selectedPhotos addObject:image];
+            }
             [self->_myCollectionView reloadData];
             if (self.didSelectedImageBlock) {
                 self.didSelectedImageBlock(self.selectedPhotos);
@@ -195,7 +218,7 @@ TZImagePickerControllerDelegate
 
 #pragma mark - 删除照片
 - (void)deleteBtnClick:(UIButton *)sender {
-    [_selectedPhotos removeObjectAtIndex:sender.tag];
+    [_selectedPhotos removeObjectAtIndex:sender.tag - 999];
     if(_selectedPhotos.count == _maxSelectCount - 1) {
         [_myCollectionView reloadData];
         if (self.didSelectedImageBlock) {
@@ -203,7 +226,7 @@ TZImagePickerControllerDelegate
         }
     }else {
         [_myCollectionView performBatchUpdates:^{
-            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:sender.tag inSection:0];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:sender.tag - 999 inSection:0];
             [self->_myCollectionView deleteItemsAtIndexPaths:@[indexPath]];
         } completion:^(BOOL finished) {
             [self->_myCollectionView reloadData];

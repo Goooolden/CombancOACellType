@@ -11,7 +11,7 @@
 #import "CustomCellDefine.h"
 #import "UIColor+CustomCell.h"
 
-#define WORD_LIMIT 50
+#define WORD_LIMIT 500
 
 @interface TextViewTableViewCell()<UITextViewDelegate>
 
@@ -51,7 +51,7 @@
     _limitLabel = [[UILabel alloc]init];
     _limitLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
     _limitLabel.textColor = [UIColor colorWithHex:@"#c7c7c7"];
-    _limitLabel.text = @"最多输入50个字符";
+//    _limitLabel.text = @"最多输入50个字符";
     [self.contentView addSubview:_limitLabel];
     
     [_leftImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -79,6 +79,10 @@
     }];
 }
 
+- (void)setWordLimt:(int)wordLimt {
+    self.limitLabel.text = [NSString stringWithFormat:@"最多输入%d个字符",wordLimt];
+}
+
 - (void)textViewDidChange:(DidChangeBlock)didChangeBlock withDidEndEditingBlock:(DidEndEditingBlock)didEndEditingBlock {
     _didChangeBlock = didChangeBlock;
     _didEndEditingBlock = didEndEditingBlock;
@@ -86,8 +90,8 @@
 
 - (void)textViewDidChange:(UITextView *)textView {
     //该判断用于联想输入
-    if (textView.text.length > WORD_LIMIT) {
-        textView.text = [textView.text substringToIndex: WORD_LIMIT];
+    if (textView.text.length > self.wordLimt) {
+        textView.text = [textView.text substringToIndex: self.wordLimt];
     }
     if (self.didChangeBlock) {
         self.didChangeBlock();
@@ -102,8 +106,8 @@
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     NSString *str = [NSString stringWithFormat:@"%@%@", textView.text, text];
-    if (str.length > WORD_LIMIT) {
-        textView.text = [textView.text substringToIndex:WORD_LIMIT];
+    if (str.length > self.wordLimt) {
+        textView.text = [textView.text substringToIndex:self.wordLimt];
         return NO;
     }
     return YES;

@@ -34,4 +34,6 @@ typedef void(^didSelectedImagesBlock)(NSArray *images);
 
 - (void)imageSelectViewDidSelected:(didSelectedImagesBlock)didSelectedImages;
 
+- (void)reloadImageSelectViewWith:(NSMutableArray *)imageArray;
+
 @end

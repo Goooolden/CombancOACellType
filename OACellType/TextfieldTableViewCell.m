@@ -82,4 +82,8 @@
     }
 }
 
+- (void)setIsRequired:(BOOL)isRequired {
+    _leftImageView.image = isRequired == YES ? [UIImage imageNamed:@"OACellTypeResource.bundle/stars.png"] : nil;
+}
+
 @end

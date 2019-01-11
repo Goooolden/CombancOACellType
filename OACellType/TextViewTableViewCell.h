@@ -15,6 +15,7 @@ typedef void(^DidEndEditingBlock)(NSString *string);
 
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UITextView *infoTextView;
+@property (nonatomic, assign) int wordLimt;
 
 - (void)textViewDidChange:(DidChangeBlock)didChangeBlock withDidEndEditingBlock:(DidEndEditingBlock)didEndEditingBlock;
 
