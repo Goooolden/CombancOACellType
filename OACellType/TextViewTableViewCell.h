@@ -13,6 +13,7 @@ typedef void(^DidEndEditingBlock)(NSString *string);
 
 @interface TextViewTableViewCell : UITableViewCell
 
+@property (nonatomic, assign) BOOL isRequired;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UITextView *infoTextView;
 @property (nonatomic, assign) int wordLimt;

@@ -25,7 +25,8 @@
     self.deleteBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     self.deleteBtn.layer.masksToBounds = YES;
     self.deleteBtn.layer.cornerRadius = 10;
-    self.deleteBtn.backgroundColor = [UIColor redColor];
+    [self.deleteBtn setBackgroundImage:[UIImage imageNamed:@"OACellTypeResource.bundle/icon_delete.png"] forState:UIControlStateNormal
+     ];
     [self.contentView addSubview:self.deleteBtn];
     
     [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {

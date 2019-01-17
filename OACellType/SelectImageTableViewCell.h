@@ -18,6 +18,7 @@
 
 @interface SelectImageTableViewCell : UITableViewCell
 
+@property (nonatomic, assign) BOOL isRequired;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) ImageSelectView *selectView;
 

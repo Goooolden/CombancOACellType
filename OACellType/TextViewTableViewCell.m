@@ -33,7 +33,6 @@
 
 - (void)configUI {
     _leftImageView = [[UIImageView alloc]init];
-    _leftImageView.image = [UIImage imageNamed:@"OACellTypeResource.bundle/stars.png"];
     [self.contentView addSubview:_leftImageView];
     
     _nameLabel = [[UILabel alloc]init];
@@ -77,6 +76,10 @@
         make.right.equalTo(self.contentView.mas_right).offset(-K_CellRight);
         make.bottom.equalTo(self.contentView.mas_bottom).offset(-K_CellLimitTop);
     }];
+}
+
+- (void)setIsRequired:(BOOL)isRequired {
+    _leftImageView.image = isRequired == YES ? [UIImage imageNamed:@"OACellTypeResource.bundle/stars.png"] : nil;
 }
 
 - (void)setWordLimt:(int)wordLimt {

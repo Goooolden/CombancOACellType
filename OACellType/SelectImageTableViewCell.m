@@ -13,6 +13,8 @@
 
 @interface SelectImageTableViewCell()
 
+@property (nonatomic, strong) UIImageView *leftImageView;
+
 @end
 
 @implementation SelectImageTableViewCell
@@ -25,6 +27,8 @@
 }
 
 - (void)configUI {
+    _leftImageView = [[UIImageView alloc]init];
+    [self.contentView addSubview:_leftImageView];
     
     _nameLabel = [[UILabel alloc]init];
     _nameLabel.text = @"选择照片";
@@ -40,6 +44,16 @@
         make.top.equalTo(self.contentView.mas_top).offset(K_CellNamelblTop);
         make.bottom.equalTo(self.contentView.mas_bottom).offset(-getHeight(118+20));
     }];
+    
+    [_leftImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView.mas_left).offset(K_CellLeft);
+        make.width.height.mas_equalTo(K_CellStarsWidth);
+        make.centerY.equalTo(self.nameLabel.mas_centerY);
+    }];
+}
+
+- (void)setIsRequired:(BOOL)isRequired {
+    _leftImageView.image = isRequired == YES ? [UIImage imageNamed:@"OACellTypeResource.bundle/stars.png"] : nil;
 }
 
 @end
