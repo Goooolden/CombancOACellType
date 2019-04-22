@@ -83,6 +83,7 @@
 }
 
 - (void)setWordLimt:(int)wordLimt {
+    _wordLimt = wordLimt;
     self.limitLabel.text = [NSString stringWithFormat:@"最多输入%d个字符",wordLimt];
 }
 
@@ -110,7 +111,6 @@
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     NSString *str = [NSString stringWithFormat:@"%@%@", textView.text, text];
     if (str.length > self.wordLimt) {
-        textView.text = [textView.text substringToIndex:self.wordLimt];
         return NO;
     }
     return YES;
